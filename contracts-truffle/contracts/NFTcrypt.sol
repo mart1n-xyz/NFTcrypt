@@ -1,12 +1,13 @@
 pragma solidity  >=  0.4.25;
 
-contract Child {
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
+contract Child is ERC721 {
    string public a;
 
    event LogCreatedBy(address creator, string arg);
 
-   constructor (string memory arg) public payable {
+   constructor (string memory arg) ERC721("GameItem", "ITM") public payable {
        a = arg;
        emit LogCreatedBy(msg.sender, a);
    }
