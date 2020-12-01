@@ -1,7 +1,0 @@
-var ekr = await EncKeyRegistry.at(EncKeyRegistry.address)
-ekr.address
-ekr.setKey('RHwO7HCWrkenca9tn7yXY6Gg8ISCYm8+IGf8CBXMkCw=')
-
-0xb1c2b2c48791969a4079d0f5fd9941b621a1db20
-ekr.getKey('0xb1c2b2c48791969a4079d0f5fd9941b621a1db20')
-ekr.getMyKey()
