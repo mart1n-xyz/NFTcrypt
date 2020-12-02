@@ -1,24 +1,26 @@
 pragma solidity  >=  0.4.25;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
-contract Child is ERC721 {
-   string public a;
-
-   event LogCreatedBy(address creator, string arg);
-
-   constructor (string memory arg) ERC721("GameItem", "ITM") public payable {
-       a = arg;
-       emit LogCreatedBy(msg.sender, a);
-   }
-}
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFTcrypt {
 
-    event LogCreatedChild(address sender, string arg, address created);
+    event LogCreatedChild(address sender, string arg, string ticker, address created, address newOwner);
 
-    function createChild(string memory arg) public payable {
-        address issueContract = address((new Child).value(msg.value)(arg));
-        emit LogCreatedChild(msg.sender, arg, issueContract);
+    function createChild(string memory name, string memory abb) public payable {
+        address newOwner = msg.sender;
+        address issueContract = address((new Child).value(msg.value)(name, abb, newOwner));
+        emit LogCreatedChild(msg.sender, name, abb, issueContract, newOwner);
     }
+}
+
+contract Child is ERC721,Ownable {
+
+   event LogCreatedBy(address creator, string name, string ticker);
+
+   constructor (string memory name, string memory abb, address newOwner) ERC721(name, abb) public payable {
+        transferOwnership(newOwner);
+
+        emit LogCreatedBy(msg.sender, name, abb);
+   }
 }
