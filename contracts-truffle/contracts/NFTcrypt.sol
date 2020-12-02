@@ -23,4 +23,23 @@ contract Child is ERC721,Ownable {
 
         emit LogCreatedBy(msg.sender, name, abb);
    }
+
+   uint256 maxIndex = 0;
+
+   function issueNFT(uint256 number) onlyOwner public {
+     uint256 i =1;
+     while (i<= number) {
+       maxIndex++;
+       _mint(msg.sender,maxIndex);
+        i++;
+     }
+
+   }
+
+   function setTokenURI(uint256 tokenId, string memory _tokenURI) onlyOwner public  {
+     _setTokenURI(tokenId, _tokenURI);
+
+   }
+
+
 }
