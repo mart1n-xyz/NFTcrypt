@@ -18,9 +18,9 @@ contract NFTcrypt is Ownable {
 
 
 
-    function createChild(string memory name, string memory abb) public payable {
+    function createChild(string memory name, string memory abb, string memory ownerNm) public payable {
         address newOwner = msg.sender;
-        address issueContract = address((new Child).value(msg.value)(name, abb, newOwner, registry));
+        address issueContract = address((new Child).value(msg.value)(name, abb, newOwner, registry, ownerNm));
         emit LogCreatedChild(msg.sender, name, abb, issueContract, newOwner);
         _deployedSet[msg.sender].add(issueContract);
     }
@@ -35,10 +35,12 @@ contract Child is ERC721,Ownable {
    event LogEncKeyRead(address target, bytes key, bool status);
 
    address public encKeyReg;
+   string public ownerName;
 
-   constructor (string memory name, string memory abb, address newOwner, address registry) ERC721(name, abb) public payable {
+   constructor (string memory name, string memory abb, address newOwner, address registry, string memory ownerNm) ERC721(name, abb) public payable {
         transferOwnership(newOwner);
         encKeyReg = registry;
+        ownerName = ownerNm;
         emit LogCreatedBy(msg.sender, name, abb);
    }
 
@@ -48,14 +50,27 @@ contract Child is ERC721,Ownable {
    mapping (uint256 => uint256) public batchReg;
    mapping (uint256 => EnumerableSet.UintSet) _batchSet;
    mapping (uint256 => uint256) public batchMax;
-   mapping (uint256 => string) public encrSecret;
-   mapping (uint256 => string) public secretHash;
+   mapping (uint256 => string) private _encrSecret;
+   mapping (uint256 => string) private _secretHash;
+  // mapping (uint256 => bool) private _batchIdentical;
+   mapping (uint256 => address) private purchased;
+   mapping (address => EnumerableSet.UintSet) private _boughtTokens;
+   mapping (uint256 => uint256) public origPrice;
+   mapping (uint256 => bool) public forSale;
+
+   //function getOwnerName() public view returns (string memory) {
+  //   return ownerName;
+  // }
+   function setOwnerName(string memory ownNme) public onlyOwner {
+     ownerName=ownNme;
+   }
 
    function _issueNFT(uint256 number, uint256 batch) internal {
      uint256 i =1;
      while (i<= number) {
        maxIndex++;
        _safeMint(msg.sender,maxIndex);
+
        batchReg[maxIndex]=batch;
        _batchSet[batch].add(maxIndex);
         i++;
@@ -98,17 +113,75 @@ contract Child is ERC721,Ownable {
     }
    }
 
+   function setTokenURI(uint256 tokenId, string memory _tokenURI) public onlyOwner {
+     _setTokenURI(tokenId,_tokenURI);
+   }
+
    function getBatch(uint256 tokenId) public view returns (uint256) {
      return batchReg[tokenId];
 
    }
 
-   function keyReg() public view returns (address) {
-     return encKeyReg;
 
+
+   function setEncSecret(uint256 tokenId, string memory secret) public onlyOwner {
+     _encrSecret[tokenId] = secret;
+   }
+   function setSecretHash(uint256 tokenId, string memory hashed) public onlyOwner {
+     _secretHash[tokenId] = hashed;
    }
 
+   function viewEncSecret(uint256 tokenId) public view returns (string memory) {
+     return _encrSecret[tokenId];
+   }
+   function viewSecretHash(uint256 tokenId) public view returns (string memory) {
+     return _secretHash[tokenId];
+   }
+
+   function buyer(uint256 tokenId) public view returns(address) {
+     return purchased[tokenId];
+   }
+
+
+   function price(uint256 tokenId) public view returns(uint256) {
+     require(forSale[tokenId]==true);
+     return  origPrice[tokenId];
+   }
+   function checkForSale(uint256 tokenId) public view returns (bool) {
+     if (forSale[tokenId]==true) {
+       return true;
+     } else {
+       return false;}
+   }
+   function setPrice(uint256 tokenId, uint256 price) public onlyOwner {
+     origPrice[tokenId]=price;
+   }
+   function purchase(uint256 tokenId) public payable {
+     require( forSale[tokenId]==true && msg.value>=origPrice[tokenId]);
+     purchased[tokenId]=msg.sender;
+     _boughtTokens[msg.sender].add(tokenId);
+   }
+
+
 /**
+function keyReg() public view returns (address) {
+  return encKeyReg;
+}
+
+
+function BatchApply(uint256 batchId, string memory _text, bytes4 methodId) internal  {
+ uint256 size = batchSize(batchId);
+ uint256 _i = 0;
+ while (_i<size) {
+   address(this).call(abi.encode(methodId, _text,_batchSet[batchId].at(_i)));
+   _i++;
+ }
+}
+
+function setBatchHash(uint256 batchId, string memory _hashed) public onlyOwner {
+  BatchApply(batchId,  _hashed, bytes4(keccak256("setSecretHash(uint256,string)")));
+}
+
 
    function readEncKey(address _var) public returns (bytes memory) {
      bool status;
