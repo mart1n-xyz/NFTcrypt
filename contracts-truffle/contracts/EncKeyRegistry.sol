@@ -22,7 +22,7 @@ contract EncKeyRegistry {
     }
 
     /// @notice Deletes user's encryption key from the registry
-    function deleteKey() public  {
+    function deleteKey() public {
         delete encKey[msg.sender];
     }
 }
