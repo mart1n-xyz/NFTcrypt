@@ -1,0 +1,71 @@
+### EncKeyRegistry
+
+var ekr = await EncKeyRegistry.at(EncKeyRegistry.address)
+ekr.address
+ekr.setKey('RHwO7HCWrkenca9tn7yXY6Gg8ISCYm8+IGf8CBXMkCw=')
+
+0xb1c2b2c48791969a4079d0f5fd9941b621a1db20
+ekr.getKey('0xb1c2b2c48791969a4079d0f5fd9941b621a1db20')
+ekr.getMyKey()
+ekr.deleteKey()
+
+
+
+#NFTcrypt ERC-721
+var nft = await NFTcrypt.at(NFTcrypt.address)
+nft.setRegistry(ekr.address)
+nft.createChild('Paolo', 'PAO')
+
+nft.deployedAddress('0xba8839d2a5b758ff1602d54deef7cf7b47dcf804',0)
+var creation = await nft.getPastEvents( 'LogCreatedChild', { fromBlock: 0, toBlock: 'latest' } )
+creation
+
+var child = await Child.at('0xeA800254e8c680d5c483A60F0fdbb926997f2F21')
+child.getOwnerName()
+await child.getPastEvents( 'LogCreatedBy', { fromBlock: 0, toBlock: 'latest' } )
+await child.getPastEvents( 'OwnershipTransferred', { fromBlock: 0, toBlock: 'latest' } )
+child.owner()
+
+child.createNewBatch(2)
+child.setBatchTokenURI(1,'hellp')
+child.newBatchWithURI(2,'fool')
+child.tokenByIndex(0)
+child.totalSupply()
+child.ownerOf(1)
+child.balanceOf('0xba8839d2a5b758ff1602d54deef7cf7b47dcf804')
+child.setOwnerName('Tatka')
+
+
+child.tokenURI(1)
+
+child.addToBatch(3,1)
+child.batchSize(1)
+child._batchExists(1)
+
+child.setBatchTokenURI(2,'Hello')
+child.newBatchWithURI(2,'Hello')
+
+child.tokenURI(1)
+child.getBatch(2)
+
+child.keyReg()
+await child.getPastEvents( 'LogEncKeyRead', { fromBlock: 0, toBlock: 'latest' } )
+
+
+child.setEncSecret(1,"secret1")
+child.viewEncSecret(1)
+
+child.getPrice(1)
+child.checkForSale(1)
+
+child.setBatchPrice(1,0)
+child.purchase(1 , {value: 0,from:accounts[1]})
+child.ownerOf(1)
+
+
+child.addOrNewBatch(2,100)
+child.newBatchWithURI(2,'hello')
+child.getBatch(2)
+child.tokenURI(1)
+child.setSecretHash(1,'dejndif')
+child.viewSecretHash(1)
