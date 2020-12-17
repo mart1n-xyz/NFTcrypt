@@ -4,7 +4,7 @@
 
 *This project has been submitted as my final project for Consensys Academy Bootcamp, class of 2020.*
 
-### User interface
+### Web interface
 - [kanpai.finance](http://kanpai.finance/)
 
 ### Main features
