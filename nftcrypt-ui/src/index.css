@@ -1,0 +1,102 @@
+section {
+  margin: 20px 0 20px 0;
+}
+
+.info-text {
+  font-size: 1.1em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+/* Logo & Header */
+#topright {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    display: inline;
+}
+
+#licenceDiv {
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  text-align: center !important;
+}
+
+#headera{
+  cursor:pointer;
+}
+a.custom-card,
+a.custom-card:hover {
+  color: inherit;
+}
+a.custom-card {
+  margin-right: 10px
+}
+#deployBtn {
+
+}
+.cardContrDetail {
+  font-size: x-small;
+  color: #808080;
+}
+
+.card-img-top {
+  max-width:60%;
+  margin-top: 20px
+}
+.center {
+  text-align: center !important;
+}
+.right {
+  text-align: right !important;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo-container {
+  display: inline-flex;
+  flex-direction: column;
+}
+#verification {
+  font-size: small;
+  text-transform: capitalize;
+}
+
+#logo-text {
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+.imgContainer {
+  height: 100px
+}
+#secretCheck {
+  background-color:  #fae4c4 !important
+}
+.marketCard {
+  margin-left: 20px
+}
+.imgmarket {
+  max-height: : 30px !important;
+  text-align: center !important;
+
+}
+
+#mm-logo {
+  width: 100%;
+}
+
+/* Encrypt/Decrypt */
+
+#encryptMessageInput {
+  margin-bottom: 1rem;
+}

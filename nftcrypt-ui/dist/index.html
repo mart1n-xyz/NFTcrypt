@@ -1,0 +1,620 @@
+<!-- This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>NFTcrypt</title>
+    <link rel="icon" type="image/png" href="owned.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <main class="container-fluid" >
+      <div id='topright'>
+         <span id="accounts"></span><button
+        class="btn btn-primary btn-outline-dark mb-3 rounded-pill"
+        id="connectButton"
+        disabled
+        style ='display:inline'
+      >
+        Connect
+      </button></div>
+
+      <header id=headera>
+        <div id="logo-container">
+          <h1 id="logo-text" class="text-center">
+            NFTcrypt
+          </h1>
+          <p>---- NFTs with a secret content via e2e encryption ---- </p>
+        </div>
+      </header>
+
+      <div id='spinner' style='display:none' class="text-center">
+        <div class="spinner-border" role="status">
+
+          <span class="sr-only">Loading...</span>
+        </div>
+        <p class='center'>This may take a while</p>
+      </div>
+
+
+      <section id = 'encSection'>
+        <div class="row d-flex justify-content-center">
+          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="card full-width">
+
+              <div class="card-body">
+                <div class="alert alert-light center" role="alert">
+  Please, make sure you are connected to the Ropsten testnet.
+</div>
+
+
+
+                <div class="alert alert-secondary" id='encMessage'role="alert" style="display:none">
+  This NFTcrypt dapp relies on end-to-end encryption. For you to use it, we need to save your wallet's encryption key in our public registry. Only then you will be able to decrypt the secrets in your NFTs. <br><br>Publishing your encryption key does not pose any security risk.
+</div>
+<button
+  class="btn btn-primary btn-outline-dark btn-lg btn-block mb-3 rounded-pill"
+  id="getEncryptionKeyButton"
+  disabled
+>
+  Check Encryption Key
+</button>
+                <p class="info-text alert alert-secondary " style="display:none">
+                  Encryption key:
+                  <textarea
+                    id="encryptionKeyDisplay"
+                    class="form-control"
+                    rows="4"
+                    cols="150"
+                    disabled
+                  ></textarea>
+                </p>
+                <div class="alert alert-warning" id="alert-publish" style="display:none" role="alert">
+  Encryption key has not been published in our registry yet. Press the button and send the key to the registry. <button
+    class="btn btn-primary btn-outline-dark rounded-pill "
+    id="registryPublish"
+    disabled
+  >
+    Publish
+  </button>
+</div>
+<div class="alert alert-success" id="alert-found" style="display:none" role="alert">
+Encryption key found in the registry, you can now use NFTcrypt. <button
+  class="btn btn-primary btn-outline-dark rounded-pill "
+  id="publishToMenu"
+  disabled
+>
+  Continue
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+      <div class=" full-width">
+
+          <div class="alert alert-success" id="alert-found-quick" style="display:none" role="alert">
+          Encryption key found in the registry, you can use NFTcrypt.
+          </div>
+
+</div>
+</div>
+</div>
+</section>
+<div  id ='menu' style='display:none'>
+<section>
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+
+      <div class='row justify-content-center'>
+  <a class="custom-card shadow-none" >
+    <div id='issueMenu' class="card shadow-none center border menu" style="width: 15rem; display: inline-block">
+      <img class="card-img-top center" src="new.png" >
+      <div class="card-body">
+        <h5 class="card-title center">Mint</h5>
+
+</div>
+</div>
+</a>
+<a  class="custom-card shadow-none">
+  <div class="card shadow-none  center border menu" id='manageCard' style="width: 15rem; display: inline-block">
+    <img class="card-img-top" src="edit.png" >
+    <div class="card-body">
+      <h5 class="card-title center">Manage & Sell</h5>
+
+</div>
+</div>
+</a>
+<a  class="custom-card shadow-none">
+  <div class="card shadow-none center border menu" id='marketBtn' style="width: 15rem; display: inline-block">
+    <img class="card-img-top center" src="shop.png" >
+    <div class="card-body">
+      <h5 class="card-title center">Marketplace</h5>
+
+</div>
+</div>
+</a>
+<a  class="custom-card shadow-none">
+  <div class="card shadow-none center  border menu" id='collMenu' style="width: 15rem; display: inline-block">
+    <img class="card-img-top center" src="owned.png" >
+    <div class="card-body">
+      <h5 class="card-title center">Your collection</h5>
+
+</div>
+</div>
+</a>
+</div>
+
+</div>
+</div>
+
+</section></div>
+
+            <section id='hidden' style="display:none">
+              <div class="row d-flex justify-content-center" >
+                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                  <div class="card full-width">
+                    <div class="card-body">
+
+                <div id="encrypt-message-form">
+                  <textarea
+                    class="form-control"
+                    placeholder="Message to encrypt"
+                    id="encryptMessageInput"
+                    rows="4"
+                    cols="150"
+                  ></textarea>
+
+                  <button
+                    class="btn btn-primary btn-lg btn-block mb-3"
+                    id="encryptButton"
+                    disabled
+                  >
+                    Encrypt
+                  </button>
+                </div>
+
+                <hr />
+
+                <button
+                  class="btn btn-primary btn-lg btn-block mb-3"
+                  id="decryptButton"
+                >
+                  Decrypt
+                </button>
+
+
+
+                <p class="info-text text-truncate alert alert-secondary">
+                  Ciphertext:
+                  <textarea
+                    class="form-control"
+                    id="ciphertextDisplay"
+                    rows="4"
+                    cols="150"
+                    disabled
+                  ></textarea>
+                </p>
+
+                <p class="info-text alert alert-secondary">
+                  Cleartext:
+                  <textarea
+                    class="form-control"
+                    id="cleartextDisplay"
+                    rows="4"
+                    cols="150"
+                    disabled
+                  ></textarea>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id='issueSec' style="display:none">
+        <div class="row d-flex justify-content-center" >
+          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="card full-width">
+              <div class="card-body">
+                <h5>Minting NFTs on NFTcrypt</h5><hr />
+                <br>
+
+                <p> Soon, we will walk you through the following steps and create your first NFTcrypt batch:  </p>
+                <ul class="list-group list-group-flush">
+  <li class="list-group-item">1. setting up NFTcrypt's public interface (name, description, image) and publishing it to IPFS</li>
+  <li class="list-group-item">2. minting NFTs</li>
+  <li class="list-group-item">3. adding the secret that only the NFT owner will be able to recover  </li>
+
+</ul>
+
+        </div>
+      </div>
+<div class="card full-width">
+      <div class="card-body">
+        <div id='deployhidable'>
+        <h5>But first...</h5><hr />
+      <p> We need to deploy <b>your very own NFTcrypt ERC721 contract</b>, one that allows you to became the true owner of your NFT creations. That means you'll be able to customize the ERC721 name and potentially split your NFTcrypts across multiple contracts to keep things organized.  </p>
+      <div class="alert alert-info" role="alert">
+<b>Example</b>
+<p>Suppose that a cinema wants to issue NFTcrypts as tickets. As there are multiple films and showtimes having all the NFTcrypt contract can become messy over time. One possibilyty is to deploy a new contract for every film. Alternatively, they can deploy a new contract for each week of the programme.  </p>
+</div><hr /></div>
+<h5>Set up your NFTcrypt contract</h5><br>
+<form id="formGroupExampleInput" name='deployForm'>
+  <div class="form-group">
+    <label for="deplName">Your NFTcrypt contract name</label>
+    <input type="text" class="form-control" id='deplName' placeholder="e.g. Paolo's exclusive content">
+  </div>
+  <div class="form-group">
+    <label for="deplSym">Your NFTcrypt symbol</label>
+    <input type="text" class="form-control" id='deplSym' placeholder="e.g. PAO">
+  </div>
+
+</form>
+<div class="right"><button
+  class="btn btn-primary btn-outline-dark rounded-pill "
+  id="deployBtn"
+  disabled
+>
+  Deploy
+</button>
+</div>
+
+
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</section>
+
+<div class="row d-flex justify-content-center" >
+  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+<div class="alert alert-success" id="alert-deployed" style="display:none" role="alert">
+  <h4 class="alert-heading">Well done!</h4>
+<p id='deplAlertMessage'></p>
+</div></div></div>
+
+<section id='issueContr' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+      <div class="card full-width">
+        <div class="card-body">
+<h4 >Your NFTcrypt contracts</h4> <br> <p>Select target contract for minting:</p>
+<ul id='deplContrDynList' class="list-group">
+
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id='issueContrSelected' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+      <div class="card full-width">
+        <div class="card-body">
+<h4 id='h4contr'></h4> <br>
+
+<p id='addContrP'></p>
+
+</div>
+</div>
+<div class="card full-width">
+  <div class="card-body">
+<h4>NFT token details</h4> <br>
+<p> The information from this form will be pushed to IPFS storage. Your NFTs will contain a respective IPFS link. </p>
+<form id="IPFSform" name='IPFSinput'>
+  <div class="form-group">
+    <label for="nameIpfs">Name</label>
+    <input type="text" class="form-control" id='nameIpfs' placeholder="e.g. My secret pizza recipe">
+  </div>
+  <div class="form-group">
+    <label for="descIpfs">Description</label>
+    <textarea type="text" class="form-control" id='descIpfs' rows="3" placeholder="e.g. Holding this NFT gives you exclusive access to my secret pizza recipe that you'll surely enjoy."></textarea>
+  </div>
+  <div class="form-group">
+    <label for="imageIpfs">Direct link to image file (will be visible like standard NFT) </label>
+    <textarea type="text" class="form-control" id='imgIpfs'rows="2" placeholder="e.g. https://en.wikipedia.org/wiki/Pizza#/media/File:Eq_it-na_pizza-margherita_sep2005_sml.jpg"></textarea>
+  </div>
+
+</form>
+<div class="right"><button
+  class="btn btn-primary btn-outline-dark rounded-pill "
+  id="IpfsPush"
+  disabled
+>
+  Push to IPFS
+</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="row d-flex justify-content-center" >
+  <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+<div class="alert alert-info" id="alert-how-batch" style="display:none" role="alert">
+  <h6 class="alert-heading"><b>NFTcrypts are produced in batches</b></h6>
+<p > A batch consists of individual NFTs that all share the same content and secret. If you want to sell your pizza recipe 100x, just mint a batch of 100 NFTs. In case you want your NFTs to be unique, just choose the size of 1. </p>
+</div></div></div>
+
+
+
+<section id='mintNewBatch' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+
+<div class="card full-width">
+  <div class="card-body">
+<h4>Mint a new batch</h4> <br>
+<p> The newly minted batch will be assigned the IPFS metadata. In the next step, you will set up the secret.  </p>
+<form id="BatchForm" name='IPFSinput'>
+  <div class="form-group">
+    <label for="nameIpfs">Number of NFTs to be minted in this batch</label>
+    <input type="number" class="form-control" min="1" id='newBatchSize' placeholder="">
+  </div>
+
+</form>
+<div class="right"><button
+  class="btn btn-primary btn-outline-dark rounded-pill "
+  id="mintBatch"
+
+>
+  Mint
+</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id='setSecret' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+
+<div class="card full-width">
+  <div class="card-body">
+<h4 id='batchinfo'></h4> <br>
+<p> And now it's time to set the secret. This is done in two transactions. Initially, we save your encrypted secret in a smart contract, so that you can recover it. Then, another transaction saves the hash of your secret so that whoever buys the token can verify authenticity of the secret. </p>
+<form id="secretForm" name='secretinput'>
+  <div class="form-group">
+
+    <textarea type="text" class="form-control" id='secretInput'rows="2" placeholder="Enter your secret here"></textarea>
+  </div>
+
+</form>
+<div class="right"><button
+  class="btn btn-primary btn-outline-dark rounded-pill "
+  id="secretEncrypt"
+disabled
+>
+  Encrypt & save
+</button>
+</div>
+
+</div>
+</div>
+
+
+        <div class="alert alert-success" id="saved" style="display:none" role="alert">
+        Your secret was saved, now let's hash it and save for verification.
+        <div class="right"><button
+          class="btn btn-primary btn-outline-dark rounded-pill "
+          id="secretHash"
+        disabled
+        >
+          Hash & save
+        </button>
+        </div>
+        </div>
+        <div class="alert alert-success" id="doneIssue" style="display:none" role="alert">
+          <h4 class="alert-heading">Perfect!</h4>
+          You just minted another batch of NFTcrypt.
+          <div class="right"><button
+            class="btn btn-primary btn-outline-dark rounded-pill "
+            id="issueMenu"
+
+          >
+            Back to menu
+          </button>
+          </div>
+
+        </div>
+        </div>
+
+
+</div>
+</div>
+</div>
+</section>
+
+<section id='imanageContr' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+
+
+      <div class="right"><button
+        class="btn btn-primary alert-warning btn-outline-dark rounded-pill "
+        id="secretCheck"
+        style='width:100%'
+
+      >
+        Check requests for secret reveal
+      </button>
+
+      </div>
+      <div class="card full-width">
+        <div class="card-body">
+<h4 >Your NFTcrypt contracts</h4> <br> <p>Select target contract for NFT management:</p>
+<ul id='manageContrDynList' class="list-group">
+
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+<section id='manageContrSelected' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+      <div class="card full-width">
+        <div class="card-body">
+<h4 id='h4contrMint'></h4> <br>
+
+<p id='addContrPMint'></p>
+
+</div>
+</div>
+<div class="card full-width">
+  <div class="card-body">
+<h4></h4> Your batches (click for more details) <br>
+<ul id='manageBatchDynList' class="list-group">
+
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id='batchDetail' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+      <div class="card full-width">
+        <div class="card-body">
+<h4 id='h4contrBdetail'></h4> <br>
+
+<p id='addContrPBdetail'></p>
+<p id='addContrPBdetail2'></p>
+
+</div>
+</div>
+<div class="alert alert-info" role="alert" id=setPriceAlert style='display;none'>
+  <div >
+    <h5 class="alert-heading"><b>Put this batch on sale</b></h5>
+    <form id="priceForm" name='priceinput'>
+      <div class="form-group">
+        <label for="namePrice">Price has to be positive (for now)</label>
+        <input type="number" class="form-control" min="0" id='newBatchPrice' placeholder="price in ETH">
+      </div>
+
+    </form>
+    <div class="right"><button
+      class="btn btn-primary btn-outline-dark rounded-pill "
+      id="setPrice"
+
+    >
+      Set price
+    </button>
+</div>
+</div>
+</div>
+<div class="card full-width">
+  <div class="card-body">
+<h4><b>Description</b></h4>
+<p id='uridescr'> </p>
+
+<h><b>Image</b></h4><br>
+<img id=tokenIMG class="img-fluid center" src="" >
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+<section id='marketplace' class='container' style="display:none">
+  <div id='marketContent' class="row  justify-content-center" >
+
+
+
+</div>
+
+</section>
+
+</section>
+<section id='secretSection' style="display:none">
+  <div class="row d-flex justify-content-center" >
+    <div id='secretMana' class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+
+    </main>
+
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Secret content</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" >
+            <p id='verification' style='font-weight: bold;'></p>
+            <p id='modal_body' style=''>Something went wrong</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-outline-dark rounded-pill " data-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div id='licenceDiv' class='justify-content-center'> <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />
+</div>
+
+    <script src="bundle.js" defer></script>
+
+  </body>
+</html>
