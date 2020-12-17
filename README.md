@@ -2,7 +2,7 @@
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 
-This repository contains the contracts and documentation of the NFTcrypt project for Consensys Academy Bootcamp 2020
+This repository contains contracts and web interface of my NFTcrypt project (final project for Consensys Academy Bootcamp 2020).
 
 
 ### Contracts on Ropsten
