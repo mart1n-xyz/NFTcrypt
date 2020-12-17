@@ -11,7 +11,8 @@
 - register your encryption key in a public registry
 - mint ERC721 NFT with IPFS stored metadata and encrypted secret
 - offer this NFT for sale / buy other NFTs
-- reencrypt the secret with buyer's encryption key to receal the secret
+- reencrypt the secret with buyer's encryption key to reveal the secret
+- browse your NFTs, view secrets, and verify their authenticity
 
 ## How to use
 
