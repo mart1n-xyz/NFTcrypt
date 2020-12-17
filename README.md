@@ -58,7 +58,7 @@
 + Slow loading times for the UI (particularly "Secret reveal", "Marketplace", and "Your collection")
     + Further optimization via Events and better indexing possible in the smart contracts.
 + Price cannot be zero
-    + Free NFTs possible with better batch indexing in the smart contracts.
+    + Free NFTs would be possible with better batch indexing in the smart contracts.
 + Image or video not admissible as secret
     + Solvable using third-party hosting and access control.
 + Registering encryption key necessary for Marketplace access
