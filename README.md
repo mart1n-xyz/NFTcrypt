@@ -20,7 +20,23 @@
 - browse your NFTs, view secrets, and verify their authenticity
 
 ## How to use
+### Publishing your encryption key
+NFTcrypt relies on e2e public key encryption (with the functionality of Metamask). Therefore, whether you are a seller or buyer, first, you must publish your encryption key in NFTcrypt encryption key registry (EncKeyRegistry contract). That makes it accessible for the seller, so that s/he can use it for encryption of the secret for you. 
+### Batches
+NFTcrypt tokens are organized in batches. A batch is a set of tokens that share the same metadata/characteristics, including the same secret. Hence, apart from tokenID, they are identical. Therefore, all the seller actions (mint, sell) apply to the entire batch, while buyers buy an individual token. However, secret reveal is seller's action that apploes to individual token as it targets a particular buyer (and respective encryption key). 
 ### Seller
+As a seller, you need to go through the following steps:
+                
+1. Deploy your NFTcrypt ERC721 contract (choose its name and symbol) from NFTcrypt factory. Further steps interact with the deployed NFTcrypt contract.
+2. Mint NFTcrypt batch
+   + Choose one of your deployed NFTcrypt contracts for minting.
+   + Enter token details (name, description, URL of an image), these are uploaded as JSON to IPFS (link to it is set as tokenURI/metadata in the next step).
+   + Enter the desired number of tokens and mint them.
+   + Set the secret. It will be encrypted using your encryption key and saved in the SimpleSave contract for later reveals (so that you do not need to remember it). 
+   + Hash the secret. Your secret will be hashed and saved so that once buyers decrypt the secret, its authenticity can be verified. 
+   + Congrats, you just minted your NFTs. 
+3. Sell your NFTs 
+                
 ### Buyer
 
 ## Technical details
@@ -28,10 +44,10 @@
 ### How to run locally
 
 ## Contracts
-### Encryption key registry
-### NFTcrypt factory
-### NFTcrypt child contract
-### SimpleSave contract
+### Encryption key registry (EncKeyRegistry.sol)
+### NFTcrypt factory (NFTcrypt.sol: NFTcrypt)
+### NFTcrypt child contract (NFTcrypt.sol: Child)
+### SimpleSave contract (SimpleSave.sol)
 
 ## Current applications
 + Sale of tickets, reservations, etc.
@@ -49,7 +65,7 @@
     + Allowing transfers means introducing further reencryption by the sender. While this is feasible, it introduces the possibility that the secret may be tampered  by the sender. The authenticity of the content can be verified by the receiver; however, the original secret won't be recoverable if altered. 
     + Alternatively, a solution based on third party proxy reencryption possible (NuCypher style).  
 + Adding to an existing batch not possible
-    + The contract is capable of this. The feature is yet to be built into the web interface. 
+    + The contract is capable of this. The feature is yet to be built into the web interface. Currently, it would break the query logic of the web interface.
 + Minting a large batch may exceed the block limit (on Ropsten)
     + Could be prevented by additional "add to batch" transactions.
 + Slow loading times for the UI (particularly "Secret reveal", "Marketplace", and "Your collection")
