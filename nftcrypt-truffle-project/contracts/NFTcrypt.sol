@@ -183,7 +183,8 @@ contract Child is ERC721,Ownable,NFTcryptTools {
    }
 
 
-
+   /// @notice Pause selling
+   /// @param change state you want to change to
    function togglePause(bool change) public onlyOwner {
           stopped = change;
    }
