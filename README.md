@@ -53,7 +53,7 @@ Buying a NFTcrypt token is easy:
 2. Pick a NFT and buy it. 
 3. You can find all the tokens you own in 'Your collection.'
 4. Wait for the seller to reveal the secret. 
-5. Once the secret is revealed, you can decrypt it and read the super secret confidential content.
+5. Once the secret is revealed, you can decrypt it and read the super secret confidential content. The interface also checks whether the content is authentic (by hashing the decrypted message and comparing with the has stored in the contract).
 
 ## Technical details
 ### Directory structure
