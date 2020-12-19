@@ -5,7 +5,7 @@
 *This project has been submitted as my final project for Consensys Academy Bootcamp, class of Fall 2020.*
 
 ### Web interface
-- [kanpai.finance](http://kanpai.finance/)
+- _None currently, as there were some issues. Run a local dev server instead._
 
 ### Contracts on Ropsten
 - Encryption key registry: 0x9F86dea78c52D9B5D67164687c62A6e098EB637D
