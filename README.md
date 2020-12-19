@@ -57,6 +57,17 @@ Buying a NFTcrypt token is easy:
 
 ## Technical details
 ### Directory structure
+Basic structure and relevant folders/files:
+`/nftcrypt-truffle-project` Truffle project directory
+    + `/contracts` Deployed contracts directory
+      + `/NFTcrypt.sol`
+      + `/EncKeyRegistry.sol`
+      + `/SimpleSave.sol`
+    + `/node-modules` npm packages including contracts for inheritance
+      + `/NFTcryptTools.sol` 
+    + `/test` 
+      + `/NFTcrypt.js` file containing tests
+`/nftcrypt-ui` Web interface directory
 ### How to run locally
 
 ## Contracts
