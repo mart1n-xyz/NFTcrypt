@@ -79,6 +79,8 @@ Basic structure and relevant folders/files:
     + `/test` 
       + `/NFTcrypt.js` file containing tests
 + `/deployed_addresses.txt` List of deployed contracts on Ropsten
++ `/design_pattern_decisions.md` description of design patterns
++ `/avoiding_common_attacks.md` description of safety measures
 ### How to run locally
 #### Truffle project
 + clone the repository
@@ -101,7 +103,7 @@ EncKeyRegistry serves as a public save contract for encryption keys. It maps the
 NFTcrypt factory is the centrepiece of NFTcrypt infrastructure. It deploys and tracks individual ERC721 contracts. See the NFTcrypt.sol (NFTcrypt contract) for detailed description.
 
 #### NFTcrypt Child contract (NFTcrypt.sol: Child)
-Child contract is the contract that a user deploys from the NFTcrypt factory. The user is the owner of this ERC721 contract. This contract inherits from a number of OpenZeppelin contracts as well as from NFTcryptTools contract. See the NFTcrypt.sol (Child contract) for detailed description.
+Child contract is the contract that a user deploys from the NFTcrypt factory. The user is the owner of this ERC721 contract. This contract inherits from a number of OpenZeppelin contracts as well as from NFTcryptTools contract. Public state-altering functions (buying) are pausable by the owner. See the NFTcrypt.sol (Child contract) for detailed description.
 
 #### NFTcryptTools contract (NFTcryptTools.sol)
 This contract contains all the mappings and internal and view functions additional to ERC721 implementation. Internal functions are callable from Child contract with onlyOwner modifier. See the NFTcryptTools.sol for detailed description.
