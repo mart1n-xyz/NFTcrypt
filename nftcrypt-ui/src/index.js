@@ -186,6 +186,8 @@ secretEncButton.onclick = async () => {
 
 hashButton.onclick = async () => {
   var hashedSecret=ethers.utils.keccak256(ethers.utils.toUtf8Bytes(value_secret))
+  console.log(batchnumber)
+  console.log(hashedSecret)
   try {   await childSelected.setSecretHash(batchnumber, hashedSecret, {gasPrice: 20000000000})
   hashButton.disabled=true
   hashButton.innerText='Waiting'
@@ -199,9 +201,11 @@ hashButton.onclick = async () => {
       if (myhash==hashedSecret) {
         //alert('Congrats you just set your secret.')
         hashButton.innerText='Success'
+        console.log(myhash)
         secretSetSuccess()
 
         dummy5=1;
+
       } else {
 
       };
@@ -240,6 +244,8 @@ mintButton.onclick = async () => {
 
          childSelected = new ethers.Contract(activeContract, child, ethersProvider.getSigner());
         let suplly = await childSelected.totalSupply()
+        let lastBa= await childSelected.lastBatch()
+        console.log(lastBa.toNumber())
         var supllyNum=suplly.toNumber()
         //console.log(supllyNum)
 
@@ -266,6 +272,7 @@ mintButton.onclick = async () => {
           //console.log('Success')
         var lastB = await childSelected.lastBatch()
         var lastBaNum= lastB.toNumber()
+        console.log(lastBaNum)
         batchnumber=lastBaNum
         setSecret()
 
@@ -1005,7 +1012,8 @@ setPriceButton.onclick = async () => {
     let weiPrice = value_batch_price*(10**18)
     let weiPriceString=weiPrice.toString()
     try {
-      console.log(weiPriceString)
+      console.log('batch')
+      console.log(posCurrent)
       await childTemp.setBatchPrice(posCurrent, weiPriceString, {gasPrice: 20000000000})
       setPriceButton.disabled=true
       setPriceButton.innerText='Waiting...'
@@ -1482,54 +1490,21 @@ marketBtn.onclick = async () => {
     //let contractTotal =  await nftCryptContract.lastChildId()
     //console.log(contractTotal.toNumber())
     //contractTotal=contractTotal.toNumber()
-    var history = await providerAPI.getHistory(nftcryptFactoryAddress);
-    console.log(history)
-    var contractTotal=history.length
-    var senders = new Array()
-    for(var nx = 0; nx <= contractTotal-1; nx++) {
-      try{
-        senders[nx-1]=history[nx].from
-        //var contractAddN =  await nftCryptContract.deployed().call(ethers.BigNumber.from(nx))
+    var nAddresses = await nftCryptContract.lastChildId();
 
-
-      } catch (error) {console.log(error)}
-
-    }
-    var uniqSenders =senders.filter(onlyUnique)
-    //console.log(uniqSenders)
-    var uniqSendersLen=uniqSenders.length
     //console.log(uniqSendersLen)
     //var nOfContr = new Array()
     var allContracts = new Array()
-    for (var nb = 0; nb <= uniqSendersLen-1; nb++){
-      try {
-        //console.log(uniqSenders[nb])
-        let newdummy=0
-        let na=0
-        while (newdummy==0){
-          try {
-            //console.log(nb)
-            //console.log(na)
-            let contractAddN = await nftCryptContract.deployedAddress(uniqSenders[nb],na);
-            //console.log(contractAddN)
-            allContracts.push(contractAddN)
-            na++
-
-          } catch (error) {
-            //console.log(error)
-            newdummy=1
-          }
-
-        }
-
-
-
-
-      } catch (error) {console.log(error)}
+    //allContracts.push('0xf6dC8B842A3aecde92D1B489B83b30a25f5A0284')
+    for (var index = 1; index <= nAddresses; index++){
+      var addressOfContract = await nftCryptContract.getDeployed(index.toString());
+      console.log(addressOfContract)
+      allContracts[index-1]=addressOfContract
     }
     //console.log(allContracts)
     let nAllContracts=allContracts.length
     for (var nr = 0; nr <= nAllContracts-1; nr++){
+      console.log(allContracts[nr])
       let childTempp = new ethers.Contract(allContracts[nr], child, ethersProvider.getSigner());
       try {
         let supplyT =  await childTempp.lastBatch();
@@ -1552,6 +1527,7 @@ marketBtn.onclick = async () => {
               rollIndices[ny-1]=rollIndices[ny-2]+bSize[ny-2]
             }
             if (ny==supplyT) {
+              rollIndices[ny-1]=rollIndices[ny-2]+bSize[ny-2]
               rollIndices[ny]=rollIndices[ny-1]+bSize[ny-1]
             }
 
@@ -1599,11 +1575,17 @@ marketBtn.onclick = async () => {
                 let secretHash = await childTempp.viewSecretHash(nw.toString())
                 console.log(secretHash)
                     if (secretHash.length>0){
+
                       try {
                         let batchURIs = await childTempp.tokenURI(batchStartIdw)
+                        console.log(batchURIs)
                         let batchPrices = await childTempp.getPrice(batchStartIdw)
-                        batchPrices=batchPrices.toNumber()
+                        console.log(batchPrices)
+                        let batchPricesBN
+                        batchPrices=batchPrices.toString()
+                        console.log(batchPrices)
                         let btchURI = await (await fetch(batchURIs)).json();
+                        console.log(btchURI)
                         /*
                         console.log(btchURI.image);
                         console.log(btchURI.description);
@@ -1774,48 +1756,19 @@ collMenu.onclick =  async () => {
     //console.log(contractTotal.toNumber())
     //contractTotal=contractTotal.toNumber()
     var history2 = await providerAPI.getHistory(nftcryptFactoryAddress);
-    var contractTotal2=history2.length
-    var senders2 = new Array()
-    for(var nx = 0; nx <= contractTotal2-1; nx++) {
-      try{
-        senders2[nx-1]=history2[nx].from
-        //var contractAddN =  await nftCryptContract.deployed().call(ethers.BigNumber.from(nx))
 
-
-      } catch (error) {console.log(error)}
-
-    }
-    var uniqSenders2 =senders2.filter(onlyUnique)
-    //console.log(uniqSenders)
-    var uniqSendersLen2=uniqSenders2.length
     //console.log(uniqSendersLen)
     //var nOfContr = new Array()
     var allContracts2 = new Array()
-    for (var nb = 0; nb <= uniqSendersLen2-1; nb++){
-      try {
-        //console.log(uniqSenders[nb])
-        let newdummy=0
-        let na=0
-        while (newdummy==0){
-          try {
-            //console.log(nb)
-            //console.log(na)
-            let contractAddN = await nftCryptContract.deployedAddress(uniqSenders2[nb],na);
-            //console.log(contractAddN)
-            allContracts2.push(contractAddN)
-            na++
+    var nAddresses2 = await nftCryptContract.lastChildId();
 
-          } catch (error) {
-            //console.log(error)
-            newdummy=1
-          }
+    //console.log(uniqSendersLen)
+    //var nOfContr = new Array()
 
-        }
-
-
-
-
-      } catch (error) {console.log(error)}
+    for (var inde = 1; inde <= nAddresses2; inde++){
+      var addressOfContract2 = await nftCryptContract.getDeployed(inde.toString());
+      console.log(addressOfContract2)
+      allContracts2[inde-1]=addressOfContract2
     }
     //console.log(allContracts)
     let nAllContracts2=allContracts2.length
