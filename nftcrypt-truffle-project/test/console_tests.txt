@@ -15,6 +15,9 @@ ekr.deleteKey()
 var nft = await NFTcrypt.at(NFTcrypt.address)
 nft.setRegistry(ekr.address)
 nft.createChild('Paolo', 'PAO')
+var myAdd=accounts[0]
+nft.deployedAddress(myAdd,0)
+
 
 nft.deployedAddress('0xba8839d2a5b758ff1602d54deef7cf7b47dcf804',0)
 var creation = await nft.getPastEvents( 'LogCreatedChild', { fromBlock: 0, toBlock: 'latest' } )
