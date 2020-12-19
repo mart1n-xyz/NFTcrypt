@@ -6,8 +6,11 @@ Rather than going with a single contract, I decided to implement a factory where
 ### Batches
 NFTcrypts are produced in batches. These are tokens with identical content which share the same metadata (i.e. IPFS link), and other properties (e.g. saved secret hash). This indexing helps to lower gas costs and optimize storage. Additionally, it helps in tracking how many tokens (with the same properties) are available to purchase.
 
+### Compatibility with ERC721
+NFTcrypt tokens are an implementation of ERC721 (via OpenZeppelin contracts) which is a standard for NFTs nowadays. Therefore, users can benefit from the number of tooling taht is available for this standard. 
+
 ### Metadata (URI) on IPFS
-The choice to incorporate IPFS for storing metadata (token URI) is adopteed as it is a common practice for various NFT platforms. The data is uploaded as JSON using Pinata API and a link is saved in the contract (for the whole batch). This helps to save on gas and allows to store larger data. 
+The choice to incorporate IPFS for storing metadata (token URI) is adopteed as it is a common practice for various NFT platforms. The data is uploaded as JSON using Pinata API and a link is saved in the contract. This helps to save on gas and allows to store larger data. 
 
 ### Revealed secret (i.e. encrypted for buyer) stored on IPFS
 Same logic as above applies here. 
