@@ -7,6 +7,11 @@
 ### Web interface
 - [kanpai.finance](http://kanpai.finance/)
 
+### Contracts on Ropsten
+- Encryption key registry: 0x9F86dea78c52D9B5D67164687c62A6e098EB637D
+- NFTcrypt Factory: 0x0531D149d24cea6ed7D506ab13aeb6A7B6037eC7
+- SimpleSave contract: 0x3AB6a9f399F963932645B41597c95e021a45d033
+
 ### Main features
 - register your encryption key in a public registry
 - mint ERC721 NFT with IPFS stored metadata and encrypted secret
@@ -15,26 +20,18 @@
 - browse your NFTs, view secrets, and verify their authenticity
 
 ## How to use
-
 ### Seller
-
 ### Buyer
 
+## Technical details
+### Directory overview
+### How to run locally
+
 ## Contracts
-
 ### Encryption key registry
-
 ### NFTcrypt factory
-
 ### NFTcrypt child contract
-
 ### SimpleSave contract
-
-### Contracts on Ropsten
-- Encryption key registry: 0x9F86dea78c52D9B5D67164687c62A6e098EB637D
-- NFTcrypt Factory: 0x0531D149d24cea6ed7D506ab13aeb6A7B6037eC7
-- SimpleSave contract: 0x3AB6a9f399F963932645B41597c95e021a45d033
-
 
 ## Current applications
 + Sale of tickets, reservations, etc.
