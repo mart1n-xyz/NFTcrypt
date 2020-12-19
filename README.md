@@ -24,7 +24,7 @@
 ### Buyer
 
 ## Technical details
-### Directory overview
+### Directory structure
 ### How to run locally
 
 ## Contracts
