@@ -1495,7 +1495,7 @@ marketBtn.onclick = async () => {
     //console.log(uniqSendersLen)
     //var nOfContr = new Array()
     var allContracts = new Array()
-    //allContracts.push('0xf6dC8B842A3aecde92D1B489B83b30a25f5A0284')
+    //allContracts.push('0xD4Dc3991f60cD9f9A735C3799F116bE931A6F61f')
     for (var index = 1; index <= nAddresses; index++){
       var addressOfContract = await nftCryptContract.getDeployed(index.toString());
       console.log(addressOfContract)
@@ -1509,8 +1509,8 @@ marketBtn.onclick = async () => {
       try {
         let supplyT =  await childTempp.lastBatch();
         supplyT=supplyT.toNumber()
-        //console.log('last batch')
-        //console.log(supplyT)
+        console.log('last batch')
+        console.log(supplyT)
         var bSize = new Array()
         var rollIndices = new Array()
 
@@ -1518,26 +1518,29 @@ marketBtn.onclick = async () => {
           try {
             let batchsizen =  await childTempp.batchSize(ny.toString());
             batchsizen=batchsizen.toNumber()
-            //console.log('batch size')
-            //console.log(batchsizen)
+            console.log('batch size')
+            console.log(batchsizen)
             bSize[ny-1]=batchsizen
             if (ny==1){
               rollIndices[0]=0
             } else {
               rollIndices[ny-1]=rollIndices[ny-2]+bSize[ny-2]
             }
-            if (ny==supplyT) {
+            if (ny==supplyT & supplyT>1) {
               rollIndices[ny-1]=rollIndices[ny-2]+bSize[ny-2]
               rollIndices[ny]=rollIndices[ny-1]+bSize[ny-1]
+            } else if (ny==supplyT & supplyT==1) {
+              rollIndices[ny]=rollIndices[ny-1]+bSize[ny-1]
             }
+
 
 
           } catch (e){}
 
         }
 
-        //console.log(rollIndices)
-        //console.log(bSize)
+        console.log(rollIndices)
+        console.log(bSize)
 
 
         try {
