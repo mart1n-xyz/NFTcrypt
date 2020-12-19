@@ -2,10 +2,10 @@
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 
-*This project has been submitted as my final project for Consensys Academy Bootcamp, class of Fall 2020.*
+*This project has been submitted as my final project for Consensys Academy Bootcamp, class of 2020.*
 
 ### Web interface
-- [kanpai.finance](http://kanpai.finance/) - has not been fully tested. In case of issues, run locally.
+- [kanpai.finance](http://kanpai.finance/) - functionality has not been fully tested. In case of issues, run locally.
 
 ### Contracts on Ropsten
 - Encryption key registry: 0x9F86dea78c52D9B5D67164687c62A6e098EB637D
