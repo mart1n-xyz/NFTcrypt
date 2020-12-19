@@ -29,24 +29,31 @@ As a seller, you need to go through the following steps:
                 
 1. Deploy your NFTcrypt ERC721 contract (choose its name and symbol) from NFTcrypt factory. Further steps interact with the deployed NFTcrypt contract.
 2. Mint NFTcrypt batch ('Mint' in the menu)
-  + Choose one of your deployed NFTcrypt contracts for minting.
-  + Enter token details (name, description, URL of an image), these are uploaded as JSON to IPFS (link to it is set as tokenURI/metadata in the next step).
-  + Enter the desired number of tokens and mint them.
-  + Set the secret. It will be encrypted using your encryption key and saved in the SimpleSave contract for later reveals (so that you do not need to remember it). 
-  + Hash the secret. Your secret will be hashed and saved so that once buyers decrypt the secret, its authenticity can be verified. 
-  + Congrats, you just minted your NFTs. 
+    + Choose one of your deployed NFTcrypt contracts for minting.
+    + Enter token details (name, description, URL of an image), these are uploaded as JSON to IPFS (link to it is set as tokenURI/metadata in the next step).
+    + Enter the desired number of tokens and mint them.
+    + Set the secret. It will be encrypted using your encryption key and saved in the SimpleSave contract for later reveals (so that you do not need to remember it). 
+    + Hash the secret. Your secret will be hashed and saved so that once buyers decrypt the secret, its authenticity can be verified. 
+    + Congrats, you just minted your NFTs. 
 3. Sell your NFTs ('Manage & Sell' in the menu)
-  + Select one of your contracts
-  + Select the NFT batch you want to put up for a sale.
-  + Enter its price in ETH and submit the transaction
-  + Your batch is listed in the marketplace. Now, wait till someone buys your token. 
-4. ...
+    + Select one of your contracts
+    + Select the NFT batch you want to put up for a sale.
+    + Enter its price in ETH and submit the transaction
+    + Your batch is listed in the marketplace. Now, wait till someone buys your token. 
+4. ...wait a bit more...
 5. Someone bought it! That means you have to reveal the secret. (The profit was sent to your address.)
-  + Go to 'Manage & Sell' and click 'Check requests for secret reveal'
-  + This page lists all the reencryption requests. The buyer cannot access the secret until you reveal the secret. 
-  + Click decrypt the secret and submit the transaction to reveal it. (Encrypted secret is recoved from SimpleSave, decrypted by user, encrypted using buyer's key from EncKeyRegistry, and submitted to NFTcrypt contract)
+   + Go to 'Manage & Sell' and click 'Check requests for secret reveal'
+   + This page lists all the reencryption requests. The buyer cannot access the secret until you reveal the secret. 
+   + Click decrypt the secret and submit the transaction to reveal it. (Encrypted secret is recoved from SimpleSave, decrypted by user, encrypted using buyer's key from EncKeyRegistry, and submitted to NFTcrypt contract)
                 
 ### Buyer
+Buying a NFTcrypt token is easy:
+
+1. Navigate to 'Marketplace' which lists tokens for sale from all contracts evr deployed by NFTcrypt factory. 
+2. Pick a NFT and buy it. 
+3. You can find all the tokens you own in 'Your collection.'
+4. Wait for the seller to reveal the secret. 
+5. Once the secret is revealed, you can decrypt it and read the super secret confidential content.
 
 ## Technical details
 ### Directory structure
@@ -80,7 +87,7 @@ As a seller, you need to go through the following steps:
 + Slow loading times for the UI (particularly "Secret reveal", "Marketplace", and "Your collection")
     + Further optimization via Events and better indexing possible in the smart contracts.
 + Price cannot be zero
-    + Free NFTs would be possible with better batch indexing in the smart contracts.
+    + Free NFTs would be possible with better batch indexing in the smart contracts. However, there could be misaligned incentives in case the cost of scret-reveal transaction are higher than the profit of the trade. 
 + Image or video not admissible as secret
     + Solvable using third-party hosting and access control.
 + Registering encryption key necessary for Marketplace access
