@@ -55,6 +55,15 @@ Buying a NFTcrypt token is easy:
 4. Wait for the seller to reveal the secret. 
 5. Once the secret is revealed, you can decrypt it and read the super secret confidential content. The interface also checks whether the content is authentic (by hashing the decrypted message and comparing with the has stored in the contract).
 
+## Current applications
++ Sale of tickets, reservations, etc.
++ Sale of exclusive/limited content or access
++ Distribution of promo stuff (promo codes, freebies, access codes, etc.)
++ Decentralized access control and management 
+
+## Potential applications
++ Pay-to-view collections of NFTs (secret becomes the key to decrypt other NFTs' secrets) 
+
 ## Technical details
 ### Directory structure
 Basic structure and relevant folders/files:
@@ -100,14 +109,6 @@ This contract contains all the mappings and internal and view functions addition
 #### SimpleSave contract (SimpleSave.sol) - DO NOT USE IN PRODUCTION
 SimpleSave is a simple save contract for the secret encrypted by the minter/seller. Secret is saved during the minting process and recovered during secret reveal. Currently, this contract runs a simple saving logic and saved data can be altered by a third party. A production release, requires way better access control. See the SimpleSave.sol for detailed description.
 
-## Current applications
-+ Sale of tickets, reservations, etc.
-+ Sale of exclusive/limited content or access
-+ Distribution of promo stuff (promo codes, freebies, access codes, etc.)
-+ Decentralized access control and management 
-
-## Potential applications
-+ Pay-to-view collections of NFTs (secret becomes the key to decrypt other NFTs' secrets) 
 
 
 
