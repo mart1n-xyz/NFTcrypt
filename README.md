@@ -30,7 +30,7 @@ As a seller, you need to go through the following steps:
 1. Deploy your NFTcrypt ERC721 contract (choose its name and symbol) from NFTcrypt factory. Further steps interact with the deployed NFTcrypt contract.
 2. Mint NFTcrypt batch ('Mint' in the menu)
     + Choose one of your deployed NFTcrypt contracts for minting.
-    + Enter token details (name, description, URL of an image), these are uploaded as JSON to IPFS (link to it is set as tokenURI/metadata in the next step).
+    + Enter token details (name, description, URL of an image), these are uploaded as JSON to IPFS via Pinata API (link to it is set as tokenURI/metadata in the next step).
     + Enter the desired number of tokens and mint them.
     + Set the secret. It will be encrypted using your encryption key and saved in the SimpleSave contract for later reveals (so that you do not need to remember it). 
     + Hash the secret. Your secret will be hashed and saved so that once buyers decrypt the secret, its authenticity can be verified. 
@@ -59,6 +59,7 @@ Buying a NFTcrypt token is easy:
 ### Directory structure
 Basic structure and relevant folders/files:
 
++ `/nftcrypt-ui` Web interface directory
 + `/nftcrypt-truffle-project` Truffle project directory
     + `/contracts` Deployed contracts directory
       + `/NFTcrypt.sol`
@@ -68,14 +69,36 @@ Basic structure and relevant folders/files:
       + `/NFTcryptTools.sol` 
     + `/test` 
       + `/NFTcrypt.js` file containing tests
-+ `/nftcrypt-ui` Web interface directory
++ `/deployed_addresses.txt` List of deployed contracts on Ropsten
 ### How to run locally
+#### Truffle project
++ clone the repository
++ install Ganache (`npm install -g ganache-cli`) and Truffle (`npm install truffle -g`)
++ install dependencies using `npm install`
++ run your Ganache development server and adjust `truffle-config.js` for your local development server
++ in `/nftcrypt-truffle-project` run `truffle migrate` to deploy contracts
++ use `truffle console` to interact with deployed contracts
++ use `truffle test` to run tests
 
-## Contracts
-### Encryption key registry (EncKeyRegistry.sol)
-### NFTcrypt factory (NFTcrypt.sol: NFTcrypt)
-### NFTcrypt child contract (NFTcrypt.sol: Child)
-### SimpleSave contract (SimpleSave.sol)
+#### Web interface
++ in `/nftcrypt-ui` install dependencies with `yarn` or `npm install`
++ run a development serve using `yarn start`
+
+### Contracts
+#### Encryption key registry (EncKeyRegistry.sol)
+EncKeyRegistry serves as a public save contract for encryption keys. It maps the address of user to his encryption key. See the EncKeyRegistry.sol for detailed description.
+
+#### NFTcrypt factory (NFTcrypt.sol: NFTcrypt)
+NFTcrypt factory is the centrepiece of NFTcrypt infrastructure. It deploys and tracks individual ERC721 contracts. See the NFTcrypt.sol (NFTcrypt contract) for detailed description.
+
+#### NFTcrypt Child contract (NFTcrypt.sol: Child)
+Child contract is the contract that a user deploys from the NFTcrypt factory. The user is the owner of this ERC721 contract. This contract inherits from a number of OpenZeppelin contracts as well as from NFTcryptTools contract. See the NFTcrypt.sol (Child contract) for detailed description.
+
+#### NFTcryptTools contract (NFTcryptTools.sol)
+This contract contains all the mappings and internal and view functions additional to ERC721 implementation. Internal functions are callable from Child contract with onlyOwner modifier. See the NFTcryptTools.sol for detailed description.
+
+#### SimpleSave contract (SimpleSave.sol) - DO NOT USE IN PRODUCTION
+SimpleSave is a simple save contract for the secret encrypted by the minter/seller. Secret is saved during the minting process and recovered during secret reveal. Currently, this contract runs a simple saving logic and saved data can be altered by a third party. A production release, requires way better access control. See the SimpleSave.sol for detailed description.
 
 ## Current applications
 + Sale of tickets, reservations, etc.
