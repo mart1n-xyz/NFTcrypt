@@ -1,3 +1,20 @@
+2.1.3 / 2020-11-22
+=================
+  * [Deps] update `string.prototype.trimstart`; use `call-bind` instead of `es-abstract`
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape`; add `aud`
+  * [actions] add "Allow Edits" workflow
+  * [actions] switch Automatic Rebase workflow to `pull_request_target` event
+  * [Tests] migrate tests to Github Actions
+  * [Tests] run `nyc` on all tests
+  * [Tests] add `implementation` test; run `es-shim-api` in postlint; use `tape` runner
+
+2.1.2 / 2020-03-30
+=================
+* [Refactor] use `string.prototype.trimstart` for the implementation
+* [Refactor] use `es-abstract`’s `callBind` helper instead of `function-bind` directly
+* [meta] correct spec year
+* [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `tape`, `functions-have-names`; add `safe-publish-latest`
+
 2.1.1 / 2019-12-17
 =================
   * [meta] add `funding` field

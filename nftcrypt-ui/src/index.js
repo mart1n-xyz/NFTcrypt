@@ -960,7 +960,7 @@ var ownedOfBatch=0
 for(var l =start ; l <= stop; l++) {
   //console.log(l);
   try{
-    let ownerOfToken = await childTemp.ownerOf(l);
+    let ownerOfToken = await childTemp.ownerOf(l.toString());
     //console.log(ethers.utils.getAddress(accounts[0]))
     //console.log(ethers.utils.getAddress(ownerOfToken))
     if (ethers.utils.getAddress(ownerOfToken)==ethers.utils.getAddress(accounts[0])) {
@@ -1005,6 +1005,7 @@ setPriceButton.onclick = async () => {
     let weiPrice = value_batch_price*(10**18)
     let weiPriceString=weiPrice.toString()
     try {
+      console.log(weiPriceString)
       await childTemp.setBatchPrice(posCurrent, weiPriceString, {gasPrice: 20000000000})
       setPriceButton.disabled=true
       setPriceButton.innerText='Waiting...'
@@ -1012,7 +1013,8 @@ setPriceButton.onclick = async () => {
       while (dummy4==0){
         try {
           let getPr = await childTemp.getPrice(start.toString())
-          if (getPr.toNumber()==weiPrice) {
+          console.log(getPr)
+          if (getPr.toString()==weiPriceString) {
            setPriceButton.innerText='Success'
             alert('Your batch was marked as for sale')
             location.reload()
@@ -1076,7 +1078,7 @@ let maxBatch = await listManage(address,name, symbol);
   array_size.push(0)
   for( k = 1; k <= maxBatch; k++) {
     try{
-      let batchS = await childTemp.batchSize(k);
+      let batchS = await childTemp.batchSize(k.toString());
       //let batchURIs = await childTemp.tokenURI(rollingSize);
 
       rollingSize = rollingSize+ batchS.toNumber()
@@ -1086,15 +1088,15 @@ let maxBatch = await listManage(address,name, symbol);
       var position=array_size.length-1
       //console.log(batchS.toNumber())
       //console.log(rollingSize)
-      let uriGet = await childTemp.tokenURI(rollingSize);
-      let priceBat = await childTemp.origPrice(rollingSize);
+      let uriGet = await childTemp.tokenURI(rollingSize.toString());
+      let priceBat = await childTemp.origPrice(rollingSize.toString());
       //let forSale = await childTemp.forSale(rollingSize);
       //console.log(priceBat.toNumber())
       //console.log(forSale)
       //console.log(uriGet)
       let saleStatus
       let saleStatusDummy
-      if (priceBat.toNumber()==0){
+      if (priceBat.eq(0)==true){
         saleStatus = ' - not on sale'
         saleStatusDummy=0
       } else {
@@ -1481,6 +1483,7 @@ marketBtn.onclick = async () => {
     //console.log(contractTotal.toNumber())
     //contractTotal=contractTotal.toNumber()
     var history = await providerAPI.getHistory(nftcryptFactoryAddress);
+    console.log(history)
     var contractTotal=history.length
     var senders = new Array()
     for(var nx = 0; nx <= contractTotal-1; nx++) {
@@ -1538,7 +1541,7 @@ marketBtn.onclick = async () => {
 
         for (var ny = 1; ny <= supplyT; ny++){
           try {
-            let batchsizen =  await childTempp.batchSize(ny);
+            let batchsizen =  await childTempp.batchSize(ny.toString());
             batchsizen=batchsizen.toNumber()
             //console.log('batch size')
             //console.log(batchsizen)
@@ -1576,7 +1579,7 @@ marketBtn.onclick = async () => {
             let batchSaleNumber = 0
             let tokenForSale
             for (var nwq = batchStartIdw; nwq <= batchEndIdw; nwq++){
-              let foSaleStatus = await childTempp.forSale(ethers.BigNumber.from(nwq))
+              let foSaleStatus = await childTempp.forSale(nwq.toString())
               if (foSaleStatus==true){
                 batchSaleStatus=true
                 tokenForSale=nwq
@@ -1593,8 +1596,8 @@ marketBtn.onclick = async () => {
 
             if (batchSaleStatus==true) {
               try{
-                let secretHash = await childTempp.viewSecretHash(ethers.BigNumber.from(nw))
-
+                let secretHash = await childTempp.viewSecretHash(nw.toString())
+                console.log(secretHash)
                     if (secretHash.length>0){
                       try {
                         let batchURIs = await childTempp.tokenURI(batchStartIdw)
